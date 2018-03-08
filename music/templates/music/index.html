@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django data</title>
+</head>
+<body>
+{% if all_albums%}
+<h2>Here are all my albums:</h2>
+    <ul>
+        {% for album in all_albums%}
+        <li><a href="/music/{{ album.id}}">{{ album.album_title}}>>{{ album.artist}}>>>{{ album.genre}}>>>>{{ album.album_logo}}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No albums found!!!!</h3>
+{% endif %}
+</body>
+</html>
