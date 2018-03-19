@@ -1,0 +1,19 @@
+body{
+    background-color:rgb(134,144,99);
+
+}
+.navbar-brand img{
+    height:50px;
+    width:50px;
+}
+.main a{
+    color:green;
+}
+nav{
+    border-radius:0px !important;
+}
+.iii{
+    height:300px;
+    width:100%;
+}
+

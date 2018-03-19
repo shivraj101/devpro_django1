@@ -2,9 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>{% block title %}Shivrajj{% endblock %}</title>
+    <!--load static files like images,css and js-->
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'music/images/abc.ico' %}">
+    <link rel="stylesheet" href="{% static 'music/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'music/font-awesome/css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'music/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'music/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'music/js/bootstrap.min.js' %}"></script>
+
 </head>
 <body>
-$END$
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!--logo and header-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#myNav">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <a href="{% url 'music:index' %}" class="navbar-brand">
+                Shivrajj
+            </a>
+        </div>
+
+            <!--items in #myNav-->
+            <div class="collapse navbar-collapse" id="myNav">
+                <ul class="nav navbar-nav">
+                    <li class="{% block current_page_index %}{% endblock %}">
+                        <a href="{% url 'music:index' %}">
+                            <span class="fa fa-th-large" aria-hidden="true"></span>
+                            &nbsp;Album
+                        </a>
+                    </li>
+                    <li class="{% block current_page_songs %}{% endblock %}">
+                        <a href="#">
+                            <span class="fa fa-music" aria-hidden="true"></span>
+                            &nbsp;Songs
+                        </a>
+                    </li>
+
+                </ul>
+
+                <form action="#" class="navbar-form navbar-left" role="search" method="get">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="query" placeholder="search...">
+                    </div>
+                    <button type="submit" class="btn btn-info">search</button>
+                </form>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{% block current_page_add %}{% endblock %}">
+                        <a href="{% url 'music:add-album' %}">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                            &nbsp;Add Album
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#">
+                            <span class="fa fa-cloud" aria-hidden="true"></span>
+                            &nbsp;LogOut
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+    </div>
+</nav>
+{% block body %}
+{% endblock %}
 </body>
 </html>

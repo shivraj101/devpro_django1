@@ -1,19 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Django data</title>
-</head>
-<body>
-{% if all_albums%}
-<h2>Here are all my albums:</h2>
-    <ul>
-        {% for album in all_albums%}
-        <li><a href="/music/{{ album.id}}">{{ album.album_title}}>>{{ album.artist}}>>>{{ album.genre}}>>>>{{ album.album_logo}}</a></li>
+{% extends 'music/base.html' %}
+
+{% block current_page_index %}active{% endblock %}
+
+{% block body %}
+<div class="container main jumbotron">
+    <div class="row">
+        {% if object_list%}
+    <!--<h2>Here are all my albums:</h2>-->
+
+        <div class="col-md-12">
+            {% for album in object_list %} <!--object list in generic views-->
+        <div class="col-md-4 well">
+            <img src="{{album.album_logo.url}}" alt="{{album.album_logo.url}}" class="img-thumbnail iii"><br>
+            <h2>{{ album.album_title}}</h2>
+            <h4>{{ album.artist}}</h4>
+            <a href="{% url 'music:detail' album.id %}"> <!-- using namespace:name-->
+            <!--{{ album.album_title}}>>{{ album.artist}}>>>{{ album.genre}}>>>>{{ album.album_logo}}-->
+                <button class="btn btn-default btn-success" style="float:left;margin-left:10px;">View Details</button>
+            </a>
+
+            <form action="{% url 'music:delete-album' album.id%}" method="post" style="float:left;margin-left:10px;">
+                {% csrf_token%}
+                <input type="hidden" name="album_id" value="{{ album.id }}">
+                <button class="btn btn-danger" title="delete album" onclick="confirm('Do you want to delete this album permanently??')"><span class="fa fa-trash"></span></button>
+
+            </form>
+
+            <button class="btn btn-info" style="float:left;margin-left:10px;"><span class="fa fa-star"></span></button>
+
+        </div>
         {% endfor %}
-    </ul>
-{% else %}
-    <h3>No albums found!!!!</h3>
-{% endif %}
-</body>
-</html>
+
+        </div>
+    {% else %}
+        <div class="container">
+             <h3 align="center">No albums found!!!!</h3>
+        </div>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}
+

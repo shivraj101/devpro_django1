@@ -3,4 +3,4 @@ from .models import Album,Song
 # Register your models here.
 
 admin.site.register(Album) #gets the data from Album model into our admin panel
-admin.site.register(Song)
+admin.site.register(Song)  #gets the data from Song model into our admin panel

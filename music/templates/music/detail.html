@@ -1,25 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Details Page</title>
-</head>
-<body>
-    <table border="1px">
-        <tr>
-            <td>id</td>
-            <td>artist</td>
-            <td>album</td>
-            <td>genre</td>
-            <td>logo link</td>
-        </tr>
-        <tr>
-            <td>{{album.id}}</td>
-            <td>{{album.artist}}</td>
-            <td>{{album.album_title}}</td>
-            <td>{{album.genre}}</td>
-            <td>{{album.album_logo}}</td>
-        </tr>
-    </table>
-</body>
-</html>
+{% extends 'music/base.html' %}
+
+{% block title %}Details Page{% endblock %}
+
+
+{% block body %}
+
+    <div class="container well">
+       <div class="row">
+ <!--<table border="1px">-->
+        <!--<tr>-->
+            <!--<td>id</td>-->
+            <!--<td>artist</td>-->
+            <!--<td>album</td>-->
+            <!--<td>genre</td>-->
+            <!--<td>logo link</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>{{album.id}}</td>-->
+            <!--<td>{{album.artist}}</td>-->
+            <!--<td>{{album.album_title}}</td>-->
+            <!--<td>{{album.genre}}</td>-->
+            <!--<td>{{album.album_logo}}</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+
+        <div class="col-md-4 well">
+            <img src="{{album.album_logo.url}}" alt="{{album.album_logo.url}}">
+            <p>
+            <h1>{{album.album_title}}</h1>
+            <h6>[{{album.genre}}]</h6>
+            </p>
+            <h3>{{album.artist}}</h3>
+        </div>
+
+    <!--<ul>-->
+        <!--{% for song in album.song_set.all%}-->
+        <!--<li>{{song.song_title}} - {{song.file_type}}</li>-->
+        <!--{% endfor %}-->
+    <!--</ul>-->
+
+           <div class="col-md-8 jumbotron">
+
+               {% if error_message %}
+                     <p><b>{{ error_message }}</b></p>
+            {% endif%}
+               <span class="btn btn-primary btn-lg">View All</span>
+               <span class="btn btn-link">Add New Song</span>
+                <h3>All Songs</h3>
+               <table class="table">
+                   <tr>
+                       <th>Title</th>
+                       <th>Audio File</th>
+                       <th>Favourite</th>
+                       <th>Actions</th>
+                   </tr>
+
+                   {% for song in album.song_set.all %}
+                   <tr>
+                        <td>{{song.song_title }}</td>
+                        <td>{{song.file_type }}</td>
+                        <td>{% if song.is_favourite %}
+                                <img src="http://i.imgur.com/b9b13Rd.png" alt="*">
+                            {% else %}
+                                <img src="" alt="-">
+                            {% endif%}
+                        </td>
+                        <td>
+                            <span class="btn btn-danger btn-sm" onclick="confirm('Do you really want to delete this item?')"><i class="fa fa-trash"></i></span>
+                            <span class="btn btn-warning btn-sm" title="edit"><i class="fa fa-edit"></i></span>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+               </table>
+
+
+
+           </div>
+       </div>
+    </div>
+
+{% endblock %}
